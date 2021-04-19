@@ -21,7 +21,7 @@ app.post('/posts', async (req, res) => {
     posts[id] = {
         id, title
     };
-    await axios.post('http://localhost:4005/events', {
+    await axios.post('http://eventbus-srv:4005/events', {
         type: 'PostCreated',
         data: {
             id, title
@@ -37,5 +37,6 @@ app.post('/events', (req, res) => {
 });
 
 app.listen(4000, () => {
+    console.log('EVENT_SRV bump')
     console.log('Listening on 4000');
 });

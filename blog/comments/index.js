@@ -21,7 +21,7 @@ app.post('/posts/:id/comments', async (req, res) => {
 	comments.push({ id: commentId, content, status: 'pending' });
 	commentsByPostId[req.params.id] = comments;
 
-	await axios.post('http://localhost:4005/events', {
+	await axios.post('http://eventbus-srv:4005/events', {
 		type: 'CommentCreated',
 		data: {
 			id: commentId,
@@ -48,7 +48,7 @@ app.post('/events', async (req, res) => {
 		
 		comment.status = status;
 
-	await axios.post('http://localhost:4005/events', {
+	await axios.post('http://eventbus-srv:4005/events', {
 		type: 'CommentUpdated',
 		data: {
 			id,
@@ -61,5 +61,6 @@ app.post('/events', async (req, res) => {
     res.send({});
 });
 app.listen(4001, () => {
+	console.log('EVENT BUS ROUTES UPDATED')
 	console.log('Listening on 4001') 
 });
